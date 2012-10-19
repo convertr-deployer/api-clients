@@ -40,14 +40,6 @@ Get companies by director id 903216621:
 
     http://api.duedil.com/uk/director/903216621/companies?api_key=test
 
-Get Credit Limits from company id:
-
-    http://api.duedil.com/uk/company/06999618/credit-limits?api_key=test
-
-Get credit Ratings from company id
-
-    http://api.duedil.com/uk/company/06999618/credit-ratings?api_key=test
-
 Get Previous Company Name from company id:
 
     http://api.duedil.com/uk/company/06999618/previous-company-names?api_key=test
@@ -108,33 +100,9 @@ Get documents for single company
 
 ###API Traversal Example:
 
-Get company details and credit limits (fields: id,creditLimit) for company with id  = 06999618
-
-    http://api.duedil.com/uk/company/06999618?api_key=test&traversal={"from":"creditLimits","fields":"id,creditLimit"}
-
-Get company details and credit limits (with limit 1 , offset 2 and fields: id,creditLimit) for company with id  = 06999618
-
-    http://api.duedil.com/uk/company/06999618?api_key=test&t={"from":"creditLimits","fields":"id,creditLimit","limit":"1","offset":"2"}
-
-Get company details (fields default), credit limits (fields date) and directors (join directorships) for company with id  = 06999618
-
-    http://api.duedil.com/uk/company/06999618?api_key=test&t=[{"from":"creditLimits","fields":"date"},{"from":"directors","join":"directorships"}]
-
-Get company details (fields default) and directors (join directorships, with limit 1 and offset 2) for company with id  = 06999618
-
-    http://api.duedil.com/uk/company/06999618?api_key=test&t={"from":"creditLimits","fields":"id,creditLimit","limit":"1","offset":"2"}
-
 Get company details and accounts for company with id  = 06999618
 
     http://api.duedil.com/uk/company/06999618?api_key=test&traversal={"from":"accounts"}
-
-Get company details and creditLimits for company with id  = 06999618
-    
-    http://api.duedil.com/uk/company/06999618?api_key=test&traversal={"from":"creditLimits"}
-
-Get company details and creditRatings for company with id  = 06999618
-
-    http://api.duedil.com/uk/company/06999618?api_key=test&traversal={"from":"creditRatings"}
 
 Get company details and directors (join directorships) for company with id  = 06999618
 
@@ -174,13 +142,13 @@ Get company details and bankAccounts for company with id  = 06999618
 
 ###API Advanced Traversal Example:
 
-Get company details and mortgages, shareholdings, documents, creditRatings and creditLimits for company with id = 06999618
+Get company details and mortgages, shareholdings, documents, for company with id = 06999618
 
-    http://api.duedil.com/uk/company/06999618?api_key=test&traversal=[{"from":"mortgages"},{"from":"shareholdings"},{"from":"documents"},{"from":"creditRatings"},{"from":"creditLimits"}]
+    http://api.duedil.com/uk/company/06999618?api_key=test&traversal=[{"from":"mortgages"},{"from":"shareholdings"},{"from":"documents"}]
 
-Get company details and creditLimits (fields: date), directors (join directorships) and accounts (fields: solicitors and accountants) for company with id = 06999618
+Get company details and directors (join directorships) and accounts (fields: solicitors and accountants) for company with id = 06999618
 
-    http://api.duedil.com/uk/company/06999618?api_key=test&t=[{"from":"creditLimits","fields":"date"},{"from":"directors","join":"directorships"},{"from":"accounts","fields":"solicitors,accountants"}]
+    http://api.duedil.com/uk/company/06999618?api_key=test&t=["fields":"date"},{"from":"directors","join":"directorships"},{"from":"accounts","fields":"solicitors,accountants"}]
 
 Get company details and accounts (fields: solicitors and accountants), documents (fields: type,date,description) and mortgages (fields:personsEntitled) for company with id = 06999618
 
