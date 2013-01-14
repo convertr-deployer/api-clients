@@ -6,7 +6,7 @@
 
     <groupId>duedil.io-client-java</groupId>
     <artifactId>duedil.io-client-java</artifactId>
-    <version>0.2-RC02</version>
+    <version>0.3-stable</version>
 
     <!-- Properties -->
     <properties>

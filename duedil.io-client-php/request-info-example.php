@@ -19,18 +19,16 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 include_once 'DuedilApiClient.php';
+include_once 'credential.php';
 
-$duedilApiClient = new DuedilApiClient('USER_API_KEY');
+$duedilApiClient = new DuedilApiClient($api_key, $api_url);
 
 try {
-
 	$company_id = 'SC193794';
-	
+
 	//get company details..
-	print_r(
-		$duedilApiClient->getCompanyById($company_id)->run()
-	);
-		
+	print_r($duedilApiClient->getCompanyByOrg($company_id)->run());
+
 	//...and print request ID
 	print_r($duedilApiClient->getRequestDetails());
 

@@ -137,8 +137,7 @@ public class TransporterSimpleHttpClientImpl implements Transporter {
         logger.debug("Execute the HTTP Call");
         HttpGet httpGet = new HttpGet(uri);
         httpGet.addHeader("accept", JSON);
-        HttpResponse httpResponse = defaultHttpClient.execute(httpGet);
-        return httpResponse;
+        return defaultHttpClient.execute(httpGet);
     }
 
     private StringBuilder getContentFromHttpResponse(HttpResponse httpResponse) throws IOException {

@@ -33,46 +33,41 @@ import java.util.List;
 public interface DuedilApiClient {
 
     //company method
-    public DuedilRayCompanies getCompanyById(String id) throws DuedilClientException;
+    public DuedilRayCompanies getCompanyByOrg(String org) throws DuedilClientException;
 
-    public List<DuedilRayCreditLimits> getCreditLimitsByCompanyId(String id) throws DuedilClientException;
+    public List<DuedilRayCreditLimits> getCreditLimitsByCompanyOrg(String org) throws DuedilClientException;
 
-    public List<DuedilRayCreditRatings> getCreditRatingsByCompanyId(String id) throws DuedilClientException;
+    public List<DuedilRayCreditRatings> getCreditRatingsByCompanyOrg(String org) throws DuedilClientException;
 
-    public List<DuedilRayPreviousCompanyNames> getPreviousCompanyNameByCompanyId(String id) throws DuedilClientException;
+    public List<DuedilRayPreviousCompanyNames> getPreviousCompanyNameByCompanyOrg(String org) throws DuedilClientException;
 
-    public List<DuedilRayRegisteredAddresses> getRegisteredAddressByCompanyId(String id) throws DuedilClientException;
+    public List<DuedilRayRegisteredAddresses> getRegisteredAddressByCompanyOrg(String org) throws DuedilClientException;
 
-    public List<DuedilRayBankAccounts> getBankAccountsByCompanyId(String id) throws DuedilClientException;
+    public List<DuedilRayBankAccounts> getBankAccountsByCompanyOrg(String org) throws DuedilClientException;
 
-    public List<DuedilRaySecondaryIndustries> getSecondaryIndustriesByCompanyId(String id) throws DuedilClientException;
+    public List<DuedilRaySecondaryIndustries> getSecondaryIndustriesByCompanyOrg(String org) throws DuedilClientException;
 
-    public List<DuedilRayShareholdings> getShareholdingsByCompanyId(String id) throws DuedilClientException;
+    public List<DuedilRayShareholdings> getShareholdingsByCompanyOrg(String org) throws DuedilClientException;
 
-    public List<DuedilRayUkDocuments> getDocumentsByCompanyId(String id) throws DuedilClientException;
+    public List<DuedilRayUkDocuments> getDocumentsByCompanyOrg(String org) throws DuedilClientException;
 
-    public List<DuedilRayUkMortgages> getMortgagesByCompanyId(String id) throws DuedilClientException;
-
-    public DuedilRayServiceAddresses getServiceAddressesByDirectorshipsId(String id) throws DuedilClientException;
-
-    //directorships
-    public List<DuedilRayDirectorships> getAllDirectoshipsFromCompanyId(String id) throws DuedilClientException;
+    public List<DuedilRayUkMortgages> getMortgagesByCompanyOrg(String org) throws DuedilClientException;
 
     //director
     public DuedilRayDirectors getDirectorById(String id) throws DuedilClientException;
 
     //accounts
-    public List<DuedilRayAccounts> getAccountsByCompanyId(String id) throws DuedilClientException;
+    public List<DuedilRayAccounts> getAccountsByCompanyOrg(String org) throws DuedilClientException;
 
-    public DuedilRayFinancialCompanyAccounts getFinancialCompanyAccountDetailsById(String company_id, String account_id) throws DuedilClientException;
+    public DuedilRayFinancialCompanyAccounts getFinancialCompanyAccountDetailsById(String company_org, String account_id) throws DuedilClientException;
 
-    public DuedilRayGaapAccounts getGappAccountDetailsById(String company_id, String account_id) throws DuedilClientException;
+    public DuedilRayGaapAccounts getGappAccountDetailsById(String company_org, String account_id) throws DuedilClientException;
 
-    public DuedilRayIfrsAccounts getIfrsAccountDetailsById(String company_id, String account_id) throws DuedilClientException;
+    public DuedilRayIfrsAccounts getIfrsAccountDetailsById(String company_org, String account_id) throws DuedilClientException;
 
-    public DuedilRayInsuranceCompanyAccounts getInsuranceCompanyAccountDetailsById(String company_id, String account_id) throws DuedilClientException;
+    public DuedilRayInsuranceCompanyAccounts getInsuranceCompanyAccountDetailsById(String company_org, String account_id) throws DuedilClientException;
 
-    public DuedilRayStatutoryAccounts getStatutoryCompanyAccountDetailsById(String company_id, String account_id) throws DuedilClientException;
+    public DuedilRayStatutoryAccounts getStatutoryCompanyAccountDetailsById(String company_org, String account_id) throws DuedilClientException;
 
     //search function
     public List<DuedilCompaniesSearch> searchCompanies(String query) throws DuedilClientException;
@@ -101,8 +96,6 @@ public interface DuedilApiClient {
     public DuedilApiClientImpl setOffset(int offset);
 
     public DuedilApiClientImpl setFields(String fields);
-
-    public DuedilApiClient setLocale(String locale);
 
     public boolean hasPagination();
 

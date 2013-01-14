@@ -40,7 +40,7 @@ public class AccountSimpleExample {
 
         try {
             //Accounts
-            List<DuedilRayAccounts> accounts = duedilApiClient.getAccountsByCompanyId(COMPANY_ID);
+            List<DuedilRayAccounts> accounts = duedilApiClient.getAccountsByCompanyOrg(COMPANY_ID);
             for (DuedilRayAccounts account : accounts) {
                 System.out.println(account);
                 System.out.println(duedilApiClient.getStatutoryCompanyAccountDetailsById(COMPANY_ID, account.getId()));

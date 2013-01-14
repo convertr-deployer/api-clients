@@ -19,58 +19,57 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 include_once 'DuedilApiClient.php';
+include_once 'credential.php';
 
-$duedilApiClient = new DuedilApiClient('USER_API_KEY');
+$duedilApiClient = new DuedilApiClient($api_key, $api_url);
 
 try {
-	
-	//company id duedil
-	$company_id = 'SC193794';
-	
-	//Get directors, serviceAddress, creditRatings, creditLimits and shareholdings
-	$traversal  = new Traversal();	
-	$traversal->get('directors')->join('directorships')->getAllFields()->setLimit(5)
-		->get('serviceAddress')->join('directorships')->getAllFields()->setLimit(5)->setOffset(10)
-		->get('creditRatings')->fields('description, creditRating')
-		->get('creditLimits')
-		->get('shareholdings');
 
-	//for company $company_id
-	print_r( 
-		$duedilApiClient->getCompanyById($company_id)->setTraversal($traversal)->run()
-	);	
-		
-	//Traversal can be also a simple array
-	$traversal = array (
-                    array (
-                        'from' => 'directors',
-                        'join' => 'directorships',
-                        'fields' => 'get_all',
-                        'limit' => 5
-                    ),
-                    array (
-                        'from' => 'serviceAddress',
-                        'join' => 'directorships',
-                        'fields' => 'get_all',
-                        'limit' => 5,
-                        'offset' => 10
-                    ),
-                    array (
-                        'from' => 'creditRatings',
-                        'fields' => 'description, creditRating'
-                    ),
-                    array (
-                        'from' => 'creditLimits'
-                    ),
-                    array (
-                        'from' => 'shareholdings'
-                    )
-               );
-	
-	print_r( 
-		$duedilApiClient->getCompanyById($company_id)->setTraversal($traversal)->run()
-	);
-	
-} catch (DuedilApiException $e) {	
-	echo $e->getMessage();
+    //company id duedil
+    $company_id = 'SC193794';
+
+    //Get directors, serviceAddress, creditRatings, creditLimits and shareholdings
+    $traversal = new Traversal();
+    $traversal->get('directors')->getAllFields()->setLimit(5)
+        ->get('serviceAddress')->getAllFields()->setLimit(5)->setOffset(10)
+        ->get('creditRatings')->fields('description, creditRating')
+        ->get('creditLimits')
+        ->get('shareholdings');
+
+    //for company $company_id
+    print_r(
+        $duedilApiClient->getCompanyByOrg($company_id)->setTraversal($traversal)->run()
+    );
+
+    //Traversal can also be a simple array
+    $traversal = array(
+        array(
+            'get' => 'directors',
+            'fields' => 'get_all',
+            'limit' => 5
+        ),
+        array(
+            'get' => 'serviceAddress',
+            'fields' => 'get_all',
+            'limit' => 5,
+            'offset' => 10
+        ),
+        array(
+            'get' => 'creditRatings',
+            'fields' => 'description, creditRating'
+        ),
+        array(
+            'get' => 'creditLimits'
+        ),
+        array(
+            'get' => 'shareholdings'
+        )
+    );
+
+    print_r(
+        $duedilApiClient->getCompanyByOrg($company_id)->setTraversal($traversal)->run()
+    );
+
+} catch (DuedilApiException $e) {
+    echo $e->getMessage();
 }

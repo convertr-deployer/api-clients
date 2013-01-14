@@ -41,7 +41,7 @@ public class PriceSimpleExample {
         try {
 
             //do the request and get the price
-            DuedilRayCompanies company = duedilApiClient.getCompanyById(COMPANY_ID);
+            DuedilRayCompanies company = duedilApiClient.getCompanyByOrg(COMPANY_ID);
             DuedilRequestPrice price = duedilApiClient.getRequestDetails();
             System.out.println(price);
 

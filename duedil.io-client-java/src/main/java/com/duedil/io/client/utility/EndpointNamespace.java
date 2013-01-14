@@ -39,11 +39,7 @@ public class EndpointNamespace {
 
     final public static String SHAREHOLDINGS=  "/shareholdings";
 
-    final public static String DIRECTORSHIPS =  "/directorships";
-
     final public static String DIRECTOR =  "/director";
-
-    final public static String SERVICE_ADDRESSES = "/service-addresses";
 
     final public static String ACCOUNTS = "/accounts";
 
@@ -51,9 +47,9 @@ public class EndpointNamespace {
 
     final public static String UK_MORTGAGES  = "/mortgages";
 
-    final public static String PRICE =  "/price";
+    final public static String REQUEST_DETAILS =  "/request-details";
 
-    final public static String SEARCH_COMPANIES = "/search/find/companies";
+    final public static String SEARCH_COMPANIES = "/search/companies";
 
-    final public static String SEARCH_DIRECTORS = "/search/find/directors";
+    final public static String SEARCH_DIRECTORS = "/search/directors";
 }

@@ -21,7 +21,6 @@ import com.duedil.io.client.utility.EndpointNamespace;
 import com.duedil.io.client.utility.JsonTransformer;
 import com.google.gson.Gson;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -110,7 +109,7 @@ public class Request {
             //set traversal "form" in JsonTransformer
             List<String> forms = new ArrayList<String>();
             for (Traversal traversal : traversals) {
-                forms.add(traversal.getFrom());
+                forms.add(traversal.getGet());
             }
             JsonTransformer.setTraversalFrom(forms);
 

@@ -45,18 +45,16 @@ public class DuedilApiClientImpl implements DuedilApiClient {
 
     private static Logger logger = Logger.getLogger(DuedilApiClientImpl.class);
 
-    public static final String VERSION = "duedil.api.client-java-0.2-RC02";
-
     private static final String SLASH = "/";
 
     private static final String GET__ALL = "get_all";
 
-    private String locale = "uk";
-
-    private Request request;
+    public static final String VERSION = "duedil.api.client-java-0.3-stable";
 
     @Autowired
     private Transporter transporter;
+
+    private Request request;
 
     private List<Traversal> traversals = new ArrayList<Traversal>();
 
@@ -111,7 +109,7 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     private boolean hasRequestId() {
-        return request.getPath().indexOf(EndpointNamespace.PRICE) == -1
+        return request.getPath().indexOf(EndpointNamespace.REQUEST_DETAILS) == -1
                 && request.getPath().indexOf(EndpointNamespace.SEARCH_COMPANIES) == -1
                 && request.getPath().indexOf(EndpointNamespace.SEARCH_DIRECTORS) == -1;
     }
@@ -150,20 +148,19 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public DuedilRayCompanies getCompanyById(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id;
+    public DuedilRayCompanies getCompanyByOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org;
         logger.debug("Get company, path: " + path);
         request.setPath(path);
 
         JsonTransformer<DuedilRayCompanies> companyJsonTransformer = new JsonTransformer<DuedilRayCompanies>();
-        DuedilRayCompanies company =  companyJsonTransformer.getSingleEntity(run(), DuedilRayCompanies.class);
-        return company;
+        return companyJsonTransformer.getSingleEntity(run(), DuedilRayCompanies.class);
     }
 
     @Override
-    public List<DuedilRayCreditLimits> getCreditLimitsByCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id + EndpointNamespace.CREDIT_LIMITS;
-        logger.debug("getCreditLimitsByCompanyId, path: " + path);
+    public List<DuedilRayCreditLimits> getCreditLimitsByCompanyOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org + EndpointNamespace.CREDIT_LIMITS;
+        logger.debug("getCreditLimitsByCompanyOrg, path: " + path);
         request.setPath(path);
 
         Type collectionType = new TypeToken<List<DuedilRayCreditLimits>>(){}.getType();
@@ -173,21 +170,20 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public List<DuedilRayCreditRatings> getCreditRatingsByCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id + EndpointNamespace.CREDIT_RATINGS;
-        logger.debug("getCreditRatingsByCompanyId, path: " + path);
+    public List<DuedilRayCreditRatings> getCreditRatingsByCompanyOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org + EndpointNamespace.CREDIT_RATINGS;
+        logger.debug("getCreditRatingsByCompanyOrg, path: " + path);
         request.setPath(path);
 
         Type collectionType = new TypeToken<List<DuedilRayCreditRatings>>(){}.getType();
-        List<DuedilRayCreditRatings> response = JsonTransformer.getEntitiesCollection(run(), collectionType);
 
-        return response;
+        return JsonTransformer.getEntitiesCollection(run(), collectionType);
     }
 
     @Override
-    public List<DuedilRayPreviousCompanyNames> getPreviousCompanyNameByCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id + EndpointNamespace.PREVIOUS_COMPANY_NAMES;
-        logger.debug("getPreviousCompanyNameByCompanyId, path: " + path);
+    public List<DuedilRayPreviousCompanyNames> getPreviousCompanyNameByCompanyOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org + EndpointNamespace.PREVIOUS_COMPANY_NAMES;
+        logger.debug("getPreviousCompanyNameByCompanyOrg, path: " + path);
         request.setPath(path);
 
         Type collectionType = new TypeToken<List<DuedilRayPreviousCompanyNames>>(){}.getType();
@@ -197,8 +193,8 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public List<DuedilRayRegisteredAddresses> getRegisteredAddressByCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id + EndpointNamespace.REGISTERED_ADDRESS;
+    public List<DuedilRayRegisteredAddresses> getRegisteredAddressByCompanyOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org + EndpointNamespace.REGISTERED_ADDRESS;
         request.setPath(path);
 
         Type collectionType = new TypeToken<List<DuedilRayRegisteredAddresses>>(){}.getType();
@@ -208,9 +204,9 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public List<DuedilRayBankAccounts> getBankAccountsByCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id + EndpointNamespace.BANK_ACCOUNTS;
-        logger.debug("getBankAccountsByCompanyId, path: " + path);
+    public List<DuedilRayBankAccounts> getBankAccountsByCompanyOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org + EndpointNamespace.BANK_ACCOUNTS;
+        logger.debug("getBankAccountsByCompanyOrg, path: " + path);
         request.setPath(path);
 
         Type collectionType = new TypeToken<List<DuedilRayBankAccounts>>(){}.getType();
@@ -220,9 +216,9 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public List<DuedilRaySecondaryIndustries> getSecondaryIndustriesByCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id + EndpointNamespace.SECONDARY_INDUSTRIES;
-        logger.debug("getSecondaryIndustriesByCompanyId, path: " + path);
+    public List<DuedilRaySecondaryIndustries> getSecondaryIndustriesByCompanyOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org + EndpointNamespace.SECONDARY_INDUSTRIES;
+        logger.debug("getSecondaryIndustriesByCompanyOrg, path: " + path);
         request.setPath(path);
 
         Type collectionType = new TypeToken<List<DuedilRaySecondaryIndustries>>(){}.getType();
@@ -232,9 +228,9 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public List<DuedilRayShareholdings> getShareholdingsByCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id + EndpointNamespace.SHAREHOLDINGS;
-        logger.debug("getShareholdingsByCompanyId, path: " + path);
+    public List<DuedilRayShareholdings> getShareholdingsByCompanyOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org + EndpointNamespace.SHAREHOLDINGS;
+        logger.debug("getShareholdingsByCompanyOrg, path: " + path);
         request.setPath(path);
 
         Type collectionType = new TypeToken<List<DuedilRayShareholdings>>(){}.getType();
@@ -244,9 +240,9 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public List<DuedilRayUkDocuments> getDocumentsByCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id + EndpointNamespace.UK_DOCUMENTS;
-        logger.debug("getDocumentsByCompanyId, path: " + path);
+    public List<DuedilRayUkDocuments> getDocumentsByCompanyOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org + EndpointNamespace.UK_DOCUMENTS;
+        logger.debug("getDocumentsByCompanyOrg, path: " + path);
         request.setPath(path);
 
         Type collectionType = new TypeToken<List<DuedilRayUkDocuments>>(){}.getType();
@@ -256,9 +252,9 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public List<DuedilRayUkMortgages> getMortgagesByCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id + EndpointNamespace.UK_MORTGAGES;
-        logger.debug("getMortgagesByCompanyId, path: " + path);
+    public List<DuedilRayUkMortgages> getMortgagesByCompanyOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org + EndpointNamespace.UK_MORTGAGES;
+        logger.debug("getMortgagesByCompanyOrg, path: " + path);
         request.setPath(path);
 
         Type collectionType = new TypeToken<List<DuedilRayUkMortgages>>(){}.getType();
@@ -268,21 +264,9 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public DuedilRayServiceAddresses getServiceAddressesByDirectorshipsId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.DIRECTORSHIPS + SLASH + id + EndpointNamespace.SERVICE_ADDRESSES;
-        logger.debug("getServiceAddressesByDirectorshipsId, path: " + path);
-        request.setPath(path);
-
-        JsonTransformer<DuedilRayServiceAddresses> companyJsonTransformer = new JsonTransformer<DuedilRayServiceAddresses>();
-        DuedilRayServiceAddresses response =  companyJsonTransformer.getSingleEntity(run(), DuedilRayServiceAddresses.class);
-
-        return response;
-    }
-
-    @Override
-    public List<DuedilRayAccounts> getAccountsByCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.COMPANY + SLASH + id + EndpointNamespace.ACCOUNTS;
-        logger.debug("getAccountsByCompanyId, path: " + path);
+    public List<DuedilRayAccounts> getAccountsByCompanyOrg(String org) throws DuedilClientException {
+        String path = SLASH +  EndpointNamespace.COMPANY + SLASH + org + EndpointNamespace.ACCOUNTS;
+        logger.debug("getAccountsByCompanyOrg, path: " + path);
         request.setPath(path);
 
         Type collectionType = new TypeToken<List<DuedilRayAccounts>>(){}.getType();
@@ -292,8 +276,8 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public DuedilRayFinancialCompanyAccounts getFinancialCompanyAccountDetailsById(String company_id, String account_id) throws DuedilClientException {
-        String path = getPathToAccountDetails(company_id, account_id, "statutory");
+    public DuedilRayFinancialCompanyAccounts getFinancialCompanyAccountDetailsById(String company_org, String account_id) throws DuedilClientException {
+        String path = getPathToAccountDetails(company_org, account_id, "statutory");
         logger.debug("getFinancialCompanyAccountDetailsById, path: " + path);
         request.setPath(path);
 
@@ -304,8 +288,8 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public DuedilRayGaapAccounts getGappAccountDetailsById(String company_id, String account_id) throws DuedilClientException {
-        String path = getPathToAccountDetails(company_id, account_id, "statutory");
+    public DuedilRayGaapAccounts getGappAccountDetailsById(String company_org, String account_id) throws DuedilClientException {
+        String path = getPathToAccountDetails(company_org, account_id, "statutory");
         logger.debug("getGappAccountDetailsById, path: " + path);
         request.setPath(path);
 
@@ -316,8 +300,8 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public DuedilRayIfrsAccounts getIfrsAccountDetailsById(String company_id, String account_id) throws DuedilClientException {
-        String path = getPathToAccountDetails(company_id, account_id, "statutory");
+    public DuedilRayIfrsAccounts getIfrsAccountDetailsById(String company_org, String account_id) throws DuedilClientException {
+        String path = getPathToAccountDetails(company_org, account_id, "statutory");
         logger.debug("getIfrsAccountDetailsById, path: " + path);
         request.setPath(path);
 
@@ -328,8 +312,8 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public DuedilRayInsuranceCompanyAccounts getInsuranceCompanyAccountDetailsById(String company_id, String account_id) throws DuedilClientException {
-        String path = getPathToAccountDetails(company_id, account_id, "statutory");
+    public DuedilRayInsuranceCompanyAccounts getInsuranceCompanyAccountDetailsById(String company_org, String account_id) throws DuedilClientException {
+        String path = getPathToAccountDetails(company_org, account_id, "statutory");
         logger.debug("getInsuranceCompanyAccountDetailsById, path: " + path);
         request.setPath(path);
 
@@ -340,8 +324,8 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     @Override
-    public DuedilRayStatutoryAccounts getStatutoryCompanyAccountDetailsById(String company_id, String account_id) throws DuedilClientException {
-        String path = getPathToAccountDetails(company_id, account_id, "statutory");
+    public DuedilRayStatutoryAccounts getStatutoryCompanyAccountDetailsById(String company_org, String account_id) throws DuedilClientException {
+        String path = getPathToAccountDetails(company_org, account_id, "statutory");
         logger.debug("getStatutoryCompanyAccountDetailsById, path: " + path);
         request.setPath(path);
 
@@ -352,25 +336,13 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     }
 
     private String getPathToAccountDetails(String company_id, String account_id, String type) {
-        String path = SLASH + locale + EndpointNamespace.COMPANY  + SLASH + company_id + EndpointNamespace.ACCOUNTS + SLASH + account_id + SLASH + type ;
+        String path = SLASH +  EndpointNamespace.COMPANY  + SLASH + company_id + EndpointNamespace.ACCOUNTS + SLASH + account_id + SLASH + type ;
         return path;
     }
 
     @Override
-    public List<DuedilRayDirectorships> getAllDirectoshipsFromCompanyId(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.DIRECTORSHIPS + EndpointNamespace.COMPANY + SLASH + id;
-        logger.debug("getDirectoships, path: " + path);
-        request.setPath(path);
-
-        Type collectionType = new TypeToken<List<DuedilRayDirectorships>>(){}.getType();
-        List<DuedilRayDirectorships> response = JsonTransformer.getEntitiesCollection(run(), collectionType);
-
-        return response;
-    }
-
-    @Override
     public DuedilRayDirectors getDirectorById(String id) throws DuedilClientException {
-        String path = SLASH + locale + EndpointNamespace.DIRECTOR  + SLASH + id;
+        String path = SLASH +  EndpointNamespace.DIRECTOR  + SLASH + id;
         logger.debug("getDirectoships, path: " + path);
         request.setPath(path);
 
@@ -387,7 +359,7 @@ public class DuedilApiClientImpl implements DuedilApiClient {
 
     @Override
     public DuedilRequestPrice getRequestDetails(String request_id) throws DuedilClientException {
-        String path =  EndpointNamespace.PRICE  + SLASH + request_id;
+        String path =  EndpointNamespace.REQUEST_DETAILS + SLASH + request_id;
         logger.debug("getRequestDetails, path: " + path);
         request.setPath(path);
 
@@ -440,11 +412,6 @@ public class DuedilApiClientImpl implements DuedilApiClient {
     @Override
     public DuedilApiClientImpl setFields(String fields) {
         request.setFields(fields);
-        return this;
-    }
-
-    public DuedilApiClient setLocale(String locale){
-        this.locale = locale;
         return this;
     }
 }

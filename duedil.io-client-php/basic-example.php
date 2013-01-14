@@ -19,49 +19,50 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 include_once 'DuedilApiClient.php';
+include_once 'credential.php';
 
-$duedilApiClient = new DuedilApiClient('USER_API_KEY');
+$duedilApiClient = new DuedilApiClient($api_key, $api_url);
 
-try {	
-	$company_id = 'SC193794';
-	$director_id = '914039209';
-	
-	//Company details
-	print_r($duedilApiClient->getCompanyById($company_id)->getAllFields()->run());
-	
-	print_r($duedilApiClient->getDocumentsByCompanyId($company_id)->setLimit(2)->run());		
-				
-	print_r($duedilApiClient->getShareholdingsByCompanyId($company_id)->run());	
-	
-	print_r($duedilApiClient->getCreditLimitsByCompanyId($company_id)->run());	
-	
-	print_r($duedilApiClient->getCreditRatingsByCompanyId($company_id)->run());	
+try {
+    $company_org = 'SC193794';
+    $director_id = '914039209';
 
-	print_r($duedilApiClient->getPreviousCompanyNameByCompanyId($company_id)->run());	
-	
-	print_r($duedilApiClient->getRegisteredAddressByCompanyId($company_id)->run());	
-	
-	print_r($duedilApiClient->getBankAccountsByCompanyId($company_id)->run());	
+    //Company details
+    print_r($duedilApiClient->getCompanyByOrg($company_org)->getAllFields()->run());
 
-	print_r($duedilApiClient->getSecondaryIndustriesByCompanyId($company_id)->run());	
-		
-	print_r($duedilApiClient->getMortgagesByCompanyId($company_id)->setLimit(2)->run());	
-	
-	//Accounts
-	$account = $duedilApiClient->getAccountsByCompanyId($company_id)->setLimit(2)->run();
-	print_r($account);	
-	
-	$account_id = $account['response']['data'][0]['id'];
-	$account_type = $account['response']['data'][0]['accounts_type'];
-	print_r($duedilApiClient->getAccountsDetailsById($company_id, $account_id, $account_type)->run());
-	
-	//Directors and directorships 
-	print_r($duedilApiClient->getDirectorById($director_id)->run());	
-	
-	print_r($duedilApiClient->getAllDirectoshipsFromCompanyId($company_id)->run());	
-	
-	print_r($duedilApiClient->getServiceAddressesByDirectorshipsId($director_id)->setLimit(2)->run());	
+    print_r($duedilApiClient->getDocumentsByCompanyOrg($company_org)->setLimit(2)->run());
 
-} catch (DuedilApiException $e) {	
-	echo $e->getMessage();
+    print_r($duedilApiClient->getShareholdingsByCompanyOrg($company_org)->run());
+
+    print_r($duedilApiClient->getCreditLimitsByCompanyOrg($company_org)->run());
+
+    print_r($duedilApiClient->getCreditRatingsByCompanyOrg($company_org)->run());
+
+    print_r($duedilApiClient->getPreviousCompanyNameByCompanyOrg($company_org)->run());
+
+    print_r($duedilApiClient->getRegisteredAddressByCompanyOrg($company_org)->run());
+
+    print_r($duedilApiClient->getBankAccountsByCompanyOrg($company_org)->run());
+
+    print_r($duedilApiClient->getSecondaryIndustriesByCompanyOrg($company_org)->run());
+
+    print_r($duedilApiClient->getMortgagesByCompanyOrg($company_org)->setLimit(2)->run());
+
+    //Accounts
+    $account = $duedilApiClient->getAccountsByCompanyOrg($company_org)->setLimit(2)->run();
+    print_r($account);
+
+    $account_id = $account['response']['data'][0]['id'];
+    $account_type = $account['response']['data'][0]['accounts_type'];
+    print_r($duedilApiClient->getAccountsDetailsByOrg($company_org, $account_id, $account_type)->run());
+
+    //Directors and directorships
+    print_r($duedilApiClient->getDirectorById($director_id)->run());
+
+    print_r($duedilApiClient->getAllDirectoshipsFromCompanyOrg($company_org)->run());
+
+    print_r($duedilApiClient->getServiceAddressesByDirectorshipsId($director_id)->setLimit(2)->run());
+
+} catch (DuedilApiException $e) {
+    echo $e->getMessage();
 }

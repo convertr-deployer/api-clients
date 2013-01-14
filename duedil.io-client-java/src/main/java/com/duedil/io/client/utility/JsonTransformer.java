@@ -76,8 +76,7 @@ public class JsonTransformer<T> {
         JsonElement main =  new JsonParser().parse(json).getAsJsonObject().get(MAIN);
         JsonObject jsonObject= new JsonParser().parse(main.toString()).getAsJsonObject();
         String data = jsonObject.get(DATA).toString();
-        List entities = gson.fromJson(data, collectionType);
-        return entities;
+        return gson.fromJson(data, collectionType);
     }
 
     public DuedilRequestPrice getRequestPrice(String json) {
@@ -94,8 +93,7 @@ public class JsonTransformer<T> {
         JsonObject jsonObject= new JsonParser().parse(main.toString()).getAsJsonObject();
         String data = jsonObject.get(DATA).toString();
 
-        List entities = gson.fromJson(data, collectionType);
-        return entities;
+        return gson.fromJson(data, collectionType);
     }
 
     //Traversal

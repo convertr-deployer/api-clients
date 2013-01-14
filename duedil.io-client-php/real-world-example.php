@@ -19,10 +19,11 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 include_once 'DuedilApiClient.php';
+include_once 'credential.php';
 
-$duedilApiClient = new DuedilApiClient('USER_API_KEY');
+$duedilApiClient = new DuedilApiClient($api_key, $api_url);
 
-try {	
+try {
 	//search for company duedil and get the id
 	$q = 'duedil';
 	$duedil = $duedilApiClient->searchCompanies($q)->setLimit(1)->run();
@@ -40,6 +41,6 @@ try {
 		print_r(TraversalHelper::getAllDirectorInfo($director['id'], $duedilApiClient));
 	}
 	
-} catch (DuedilApiException $e) {	
-	echo $e->getMessage();
+} catch (DuedilApiException $e) {
+    echo 'Error: ' . $e->getMessage();
 }

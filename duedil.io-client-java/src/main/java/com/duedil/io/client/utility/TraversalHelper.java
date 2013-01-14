@@ -34,7 +34,7 @@ public class TraversalHelper {
 
     public static DuedilRayCompanies getAllCompanyInfo(String company_id, DuedilApiClient duedilApiClient) throws DuedilClientException {
         List<Traversal> traversals = new ArrayList<Traversal>();
-        traversals.add(new Traversal().get(TraversalEnum.directors.toString()).join(TraversalEnum.directorships.toString()).getAllFields());
+        traversals.add(new Traversal().get(TraversalEnum.directors.toString()));
         traversals.add(new Traversal().get(TraversalEnum.creditRatings.toString()).getAllFields());
         traversals.add(new Traversal().get(TraversalEnum.creditLimits.toString()).getAllFields());
         traversals.add(new Traversal().get(TraversalEnum.shareholdings.toString()).getAllFields());
@@ -43,20 +43,18 @@ public class TraversalHelper {
         traversals.add(new Traversal().get(TraversalEnum.bankAccounts.toString()).getAllFields());
         traversals.add(new Traversal().get(TraversalEnum.secondaryIndustries.toString()).getAllFields());
         traversals.add(new Traversal().get(TraversalEnum.previousCompanyNames.toString()).getAllFields());
-        traversals.add(new Traversal().get(TraversalEnum.serviceAddress.toString()).join(TraversalEnum.directorships.toString()).getAllFields());
+        traversals.add(new Traversal().get(TraversalEnum.serviceAddress.toString()));
 
-        DuedilRayCompanies company = duedilApiClient.setTraversal(traversals).getCompanyById(company_id);
-        return company;
+        return duedilApiClient.setTraversal(traversals).getCompanyByOrg(company_id);
     }
 
 
     public static DuedilRayDirectors getAllDirectorInfo(String director_id, DuedilApiClient duedilApiClient) throws DuedilClientException {
         List<Traversal> traversals = new ArrayList<Traversal>();
         traversals = new ArrayList<Traversal>();
-        traversals.add(new Traversal().get(TraversalEnum.company.toString()).getAllFields().join(TraversalEnum.directorships.toString()));
-        traversals.add(new Traversal().get(TraversalEnum.serviceAddress.toString()).getAllFields().join(TraversalEnum.directorships.toString()));
+        traversals.add(new Traversal().get(TraversalEnum.company.toString()).getAllFields());
+        traversals.add(new Traversal().get(TraversalEnum.serviceAddress.toString()).getAllFields());
 
-        DuedilRayDirectors directors = duedilApiClient.setTraversal(traversals).getDirectorById(director_id);
-        return directors;
+        return duedilApiClient.setTraversal(traversals).getDirectorById(director_id);
     }
 }

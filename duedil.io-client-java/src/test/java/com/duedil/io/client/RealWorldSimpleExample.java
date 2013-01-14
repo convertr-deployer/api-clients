@@ -42,7 +42,7 @@ public class RealWorldSimpleExample {
         try {
             //Search for a company and get the info
             List<DuedilCompaniesSearch> companies = duedilApiClient.setLimit(1).searchCompanies(QUERY);
-            DuedilRayCompanies duedil = duedilApiClient.getAllFields().getCompanyById(companies.get(0).getId());
+            DuedilRayCompanies duedil = duedilApiClient.getAllFields().getCompanyByOrg(companies.get(0).getId());
             System.out.println(duedil);
 
         } catch (DuedilClientException e) {

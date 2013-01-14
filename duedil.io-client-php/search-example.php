@@ -19,18 +19,16 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 include_once 'DuedilApiClient.php';
+include_once 'credential.php';
 
-$duedilApiClient = new DuedilApiClient('USER_API_KEY');
+$duedilApiClient = new DuedilApiClient($api_key, $api_url);
 
 try {
-	
 	//the query
 	$q = 'arsenal';
 	
 	//search for company duedil
-	print_r(
-		$duedilApiClient->searchCompanies($q)->run()
-	);
+	print_r($duedilApiClient->searchCompanies($q)->run());
 	
 	//...and print all the pages
 	while ( $duedilApiClient->hasNextPage() ) {

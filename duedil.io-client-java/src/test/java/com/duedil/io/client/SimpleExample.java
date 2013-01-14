@@ -29,8 +29,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class SimpleExample {
 
-    private static final String COMPANY_UK = "SC193794";
-    private static final String COMPANY_ROI = "IE384137";
+    private static final String COMPANY_ORG = "SC193794";
 
     public static void main (String[] args) {
 
@@ -38,15 +37,9 @@ public class SimpleExample {
         DuedilApiClient duedilApiClient = (DuedilApiClient)context.getBean("duedilApiClient");
 
         try {
-            //get company info and request price
-            DuedilRayCompanies company_uk = duedilApiClient.getAllFields().getCompanyById(COMPANY_UK);
+            //get company info and request details
+            DuedilRayCompanies company_uk = duedilApiClient.getAllFields().getCompanyByOrg(COMPANY_ORG);
             System.out.println(company_uk);
-            System.out.println(duedilApiClient.getRequestDetails());
-
-            //get company info of a non-uk company_uk
-            duedilApiClient.setLocale("ROI");
-            DuedilRayCompanies company_roi = duedilApiClient.getAllFields().getCompanyById(COMPANY_ROI);
-            System.out.println(company_roi);
             System.out.println(duedilApiClient.getRequestDetails());
 
         } catch (DuedilClientException e) {

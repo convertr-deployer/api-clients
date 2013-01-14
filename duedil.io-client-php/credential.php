@@ -15,24 +15,6 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+$api_key = 'YOU_API_KEY';
+$api_url = 'http://api.duedil.com/v2';
 
-include_once 'DuedilApiClient.php';
-
-$duedilApiClient = new DuedilApiClient('USER_API_KEY');
-
-try {	
-	$company_uk = 'SC193794';
-	$company_roi = 'IE384137';
-	
-	//Company UK
-	print_r($duedilApiClient->getCompanyById($company_uk)->run());
-
-	//Company ROI
-	$duedilApiClient->setLocale('ROI');
-	print_r($duedilApiClient->getCompanyById($company_roi)->run());
-	
-} catch (DuedilApiException $e) {	
-	echo $e->getMessage();
-}

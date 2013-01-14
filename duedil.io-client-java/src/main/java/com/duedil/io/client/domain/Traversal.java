@@ -24,13 +24,12 @@ package com.duedil.io.client.domain;
 public class Traversal {
 
     private static final String GET_ALL = "get_all";
+    
     private int limit;
 
     private int offset;
 
-    private String from;
-
-    private String join;
+    private String get;
 
     private String fields;
 
@@ -48,12 +47,7 @@ public class Traversal {
     }
 
     public Traversal get(String get) {
-        this.from = get;
-        return this;
-    }
-
-    public Traversal join(String join) {
-        this.join = join;
+        this.get = get;
         return this;
     }
 
@@ -67,7 +61,7 @@ public class Traversal {
         return this;
     }
 
-    public String getFrom(){
-        return from;
+    public String getGet(){
+        return get;
     }
 }
