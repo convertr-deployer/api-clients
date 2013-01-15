@@ -36,34 +36,17 @@ try {
         ->get('creditLimits')
         ->get('shareholdings');
 
-    //for company $company_id
     print_r(
         $duedilApiClient->getCompanyByOrg($company_id)->setTraversal($traversal)->run()
     );
 
-    //Traversal can also be a simple array
+    //Traversal can also be a simple multi-dimensional array
     $traversal = array(
-        array(
-            'get' => 'directors',
-            'fields' => 'get_all',
-            'limit' => 5
-        ),
-        array(
-            'get' => 'serviceAddress',
-            'fields' => 'get_all',
-            'limit' => 5,
-            'offset' => 10
-        ),
-        array(
-            'get' => 'creditRatings',
-            'fields' => 'description, creditRating'
-        ),
-        array(
-            'get' => 'creditLimits'
-        ),
-        array(
-            'get' => 'shareholdings'
-        )
+        array('get' => 'directors', 'fields' => 'get_all', 'limit' => 5),
+        array('get' => 'serviceAddress', 'fields' => 'get_all', 'limit' => 5, 'offset' => 10),
+        array('get' => 'creditRatings', 'fields' => 'description, creditRating'),
+        array('get' => 'creditLimits'),
+        array('get' => 'shareholdings')
     );
 
     print_r(
