@@ -6,3 +6,7 @@ https://github.com/duedil-ltd/api-clients/tree/master/duedil.io-client-php
 And here you can find the JAVA Client:
 
 https://github.com/duedil-ltd/api-clients/tree/master/duedil.io-client-java
+
+Get your API key here:
+
+http://developer.duedil.com/member/register
