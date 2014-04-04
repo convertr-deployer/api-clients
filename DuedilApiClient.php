@@ -397,7 +397,7 @@ final class AdvancedSearchDuedilApiClient extends DuedilApiClient
     /**
      * @return mixed
      */
-    public function run()
+    public function search()
     {
         if ( empty($this->filters) ) {
             throw new DuedilApiException('The filters can\' be null');

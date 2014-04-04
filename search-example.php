@@ -31,7 +31,7 @@ try {
             ->setRange(SearchFields::TURNOVER, 0, 10000)
             ->setRange(SearchFields::CASH, 0, 10000)
             ->orderBy(SearchFields::TURNOVER, SearchFields::ASC)
-            ->run()
+            ->search()
     );
 
 } catch (DuedilApiException $e) {
@@ -45,7 +45,7 @@ try {
             ->searchCompanies()
             ->setTerms(SearchFields::POSTCODE, 'EC1R 5EY')
             ->setLimit(5)
-            ->run(),
+            ->search(),
         $duedilApiClient->getPagination()
     );
 
