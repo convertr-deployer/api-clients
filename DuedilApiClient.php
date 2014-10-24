@@ -377,7 +377,7 @@ class DuedilApiClient extends AbstractDuedilApiClient
     }
 }
 
-final class AdvancedSearchDuedilApiClient extends DuedilApiClient
+class AdvancedSearchDuedilApiClient extends DuedilApiClient
 {
     private $filters = array();
 
