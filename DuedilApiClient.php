@@ -516,6 +516,8 @@ final class SearchFields
  */
 final class HttpClient
 {
+    const TIMEOUT = 10;
+
     private $url;
 
     private $key;
@@ -556,8 +558,8 @@ final class HttpClient
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, ResponseEnum::GET);
         curl_setopt($curl, CURLOPT_USERAGENT, DuedilApiClient::$version);
         //timeout
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 4);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 4);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, self::TIMEOUT);
+        curl_setopt($curl, CURLOPT_TIMEOUT, self::TIMEOUT);
         return $curl;
     }
 
